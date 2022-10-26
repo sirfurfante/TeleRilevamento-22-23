@@ -7,7 +7,7 @@ library(raster)
 setwd("C:/lab/") #windows
 #richiamo le immagini con la funzione brich
 #import
-l2011 <- brich("p224r63_2011.grd")
+l2011 <- brich("pp224r63_2011")
 l2011
 #faccio il plot dell'immagine
 plot(l2011)
