@@ -6,8 +6,8 @@ library(raster)
 library(RStoolbox)
 # library(rasterdiv)
 
-setwd("~/lab/") # Linux
-# setwd("C:/lab/") # Windows
+# setwd("~/lab/") # Linux
+ setwd("C:/lab/") # Windows
 # setwd("/Users/name/Desktop/lab/") # Mac
 
 # Exercise: import the first file -> defor1_.jpg -> give it the name l1992
@@ -31,7 +31,7 @@ plotRGB(l2006, r=1, g=2, b=3, stretch="lin")
 # Exercise: plot in a multiframe the two images with one on top of the other
 par(mfrow=c(2,1))
 plotRGB(l1992, r=1, g=2, b=3, stretch="lin")
-plotRGB(l2006, r=1, g=2, b=3, stretch="lin")
+plotRGB(l2006, r=1, g=2, b=3, stretch="lin") 
 
 # DVI Difference Vegetation Index
 dvi1992 = l1992[[1]] - l1992[[2]]
