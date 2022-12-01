@@ -20,10 +20,10 @@ lst_2015 <- raster("lst_2015.tif")
 
 # par
 par(mfrow=c(2,2))
-plot(lst_2000)
-plot(lst_2005)
-plot(lst_2010)
-plot(lst_2015)
+plot(lst2000)
+plot(lst2005)
+plot(lst2010)
+plot(lst2015)
 
 # list f files:
 rlist <- list.files(pattern="lst")
