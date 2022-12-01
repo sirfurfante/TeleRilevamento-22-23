@@ -57,6 +57,10 @@ plot(gcclass4$map, col=clc)
 plotRGB(gc, r=1, g=2, b=3, stretch="hist")
 
 
+#per problemi di dimensioni nel plottaggio
+st <- stack(gc, gcclass4$map)
+plot(st)
+
 
 
 
