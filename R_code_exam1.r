@@ -126,6 +126,13 @@ si2016 <- spectralIndices(K2016, green=3, red=2, nir=1)
 plot(si2015, col=cl)
 plot(si2016, col=cl)
 
+l2015 <- brick("agosto2015.tif")
+l2016 <- brick("luglio2016.tif")
+
+par(mfrow=c(2,1))
+plot(l2015, col=cl, main="PRE")
+plot(l2016, col=cl, main="POST")
+
 
 # Classifying the pre and post fire data 
 pre <- unsuperClass(K2015, nClasses=4)
