@@ -3,6 +3,52 @@ library(RStoolbox)
 
 setwd("C:/lab/")
 
+# NBR index to evaluete the fire area
+# è stato calcolato NBR per individuare le zone bruciate
+# tale procedimento è stato eseguito solo per il 2020, per ogni sezione
+
+#NBR 03_2016
+B503_2016<-brick("B503_2016.TIF") # infrarosso
+B703_2016<-brick("B703_2016.TIF") # infrarosso a onde corte
+nbr03_2016<-(B503_2016-B703_2016)/(B503_2016+B703_2016) 
+
+# lo plotto con una specifica palette di colori
+cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
+plot(nbr03_2016, col=cl, main="NBR 2016 - 03")
+
+#NBR 05_2016
+B505_2016<-brick("B505_2016.TIF") # infrarosso
+B705_2016<-brick("B705_2016.TIF") # infrarosso a onde corte
+nbr05_2016<-(B505_2016-B705_2016)/(B505_2016+B705_2016) 
+
+# lo plotto con una specifica palette di colori
+cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
+plot(nbr05_2016, col=cl, main="NBR 2016 - 05")
+
+#NBR 07_2016
+B507_2016<-brick("B507_2016.TIF") # infrarosso
+B707_2016<-brick("B707_2016.TIF") # infrarosso a onde corte
+nbr07_2016<-(B507_2016-B707_2016)/(B507_2016+B707_2016) 
+
+# lo plotto con una specifica palette di colori
+cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
+plot(nbr07_2016, col=cl, main="NBR 2016 - 07")
+
+#NBR 09_2016
+B509_2016<-brick("B509_2016.TIF") # infrarosso
+B709_2016<-brick("B709_2016.TIF") # infrarosso a onde corte
+nbr09_2016<-(B509_2016-B709_2016)/(B509_2016+B709_2016) 
+
+# lo plotto con una specifica palette di colori
+cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
+plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
+
+par(mfrow=c(1,4))
+plot(nbr03_2016, col=cl, main="NBR 2016 - 03")
+plot(nbr05_2016, col=cl, main="NBR 2016 - 05")
+plot(nbr07_2016, col=cl, main="NBR 2016 - 07")
+plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
+
 K2015 <- brick("Kamchatka_Pre_2015.jpg")
 plotRGB(K2015, r=1, g=2, b=3, stretch="lin")
 
@@ -13,9 +59,10 @@ plotRGB(K2016, r=1, g=2, b=3, stretch="lin")
 # layer 2 = red
 # layer 3 = green
 
-par(mfrow=c(2,1))
+par(mfrow=c(1,2))
 plotRGB(K2015, r=1, g=2, b=3, stretch="lin")
 plotRGB(K2016, r=1, g=2, b=3, stretch="lin") 
+
 
 # DVI Difference Vegetation Index pre fire, 2015
 dvi2015 = K2015[[1]] - K2015[[2]]
@@ -45,9 +92,9 @@ plot(dvi_dif, col=cld)
 # NDVI 2015
 
 #dvi2015 = K2015[[1]] -K2015[[2]]
-ndvi2015 = dvi2015 / (k2015[[1]] + k2015[[2]])
+ndvi2015 = dvi2015 / (K2015[[1]] + K2015[[2]])
 # or
-ndvi2015 = (K2015[[1]] - K2015[[2]]) / (K2015[[1]] + K2015[[2]])
+#ndvi2015 = (K2015[[1]] - K2015[[2]]) / (K2015[[1]] + K2015[[2]])
 
 # Multiframe with plotRGB on top of the NDVI image
 par(mfrow=c(2,1))
@@ -59,7 +106,7 @@ plot(ndvi2015, col=cl)
 #dvi2016 = K2016[[1]] - K2016[[2]]
 ndvi2016 = dvi2016 / (K2016[[1]] + K2016[[2]])
 # or
-ndvi2016 = (K2016[[1]] - K2016[[2]]) / (K2016[[1]] + K2016[[2]])
+# ndvi2016 = (K2016[[1]] - K2016[[2]]) / (K2016[[1]] + K2016[[2]])
 
 # Multiframe with plotRGB on top of the NDVI image
 par(mfrow=c(2,1))
@@ -75,10 +122,19 @@ plot(ndvi2016, col=cl)
 si2015 <- spectralIndices(K2015, green=3, red=2, nir=1)
 si2016 <- spectralIndices(K2016, green=3, red=2, nir=1)
 
-par(mfrow=c(2,1))
+
 plot(si2015, col=cl)
 plot(si2016, col=cl)
 
 
+# Classifying the pre and post fire data 
+pre <- unsuperClass(K2015, nClasses=4)
+post <- unsuperClass(K2016, nClasses=4)
 
+cl <- colorRampPalette(c('yellow','black','red'))(100)
 
+par(mfrow=c(2,1))
+plot(pre$map, col=cl, main="PRE")
+plot(post$map, col=cl, main="POST")
+
+freq(pre$map)
