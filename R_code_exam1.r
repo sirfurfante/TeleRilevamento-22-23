@@ -3,9 +3,21 @@ library(RStoolbox)
 
 setwd("C:/lab/")
 
+marzo<- brick("09_03_2016_099021_02_T1.jpg")
+maggio<- brick("12_05_2016_99021_02_T1.jpg")
+luglio<- brick("15_07_2016_99021_02_T1.jpg")
+settembre<- brick("01_09_2016_99021_02_T1.jpg")
+
+cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
+par(mfrow=c(2,2))
+plotRGB(marzo, col=cl, main="marzo_2016")
+plotRGB(maggio, col=cl, main="maggio_2016")
+plotRGB(luglio, col=cl, main="luglio_2016")
+plotRGB(settembre, col=cl, main="settembre_2016")
+
 # NBR index to evaluete the fire area
-# è stato calcolato NBR per individuare le zone bruciate
-# tale procedimento è stato eseguito solo per il 2020, per ogni sezione
+#è stato calcolato NBR per individuare le zone bruciate
+#tale procedimento è stato eseguito per il 2016, da marzo a settembre
 
 #NBR 03_2016
 B503_2016<-brick("B503_2016.TIF") # infrarosso
