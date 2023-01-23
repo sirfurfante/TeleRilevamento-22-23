@@ -1,6 +1,7 @@
 library(raster)
 library(RStoolbox)
-
+library(ggplot2)
+library(gridExtra)
 setwd("C:/lab/")
 
 # NBR index to evaluete the fire area
@@ -31,7 +32,6 @@ nbr09_2016<-(B509_2016-B709_2016)/(B509_2016+B709_2016)
 plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
 
 par(mfrow=c(1,3))
-
 plot(nbr05_2016, col=cl, main="NBR 2016 - 05")
 plot(nbr07_2016, col=cl, main="NBR 2016 - 07")
 plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
@@ -107,10 +107,10 @@ plot(ndvi_post1, col=cl, main="NDVI settembre")
 
 # Classifying the pre and post fire data 
 #importo foto nasa, pre e post incendio
-2015 <- brick("Kamchatka_Pre_2015")
-2016 <- brick("Kamchatka_Post_2016")
-pre <- unsuperClass(2015, nClasses=4)
-post <- unsuperClass(2016, nClasses=4)
+k2015 <- brick("Kamchatka_Pre_2015.jpg")
+k2016 <- brick("Kamchatka_Post_2016.jpg")
+pre <- unsuperClass(k2015, nClasses=3)
+post <- unsuperClass(k2016, nClasses=3)
 
 clc <- colorRampPalette(c('yellow','red','blue','black'))(100)
 
@@ -120,13 +120,51 @@ plot(post$map, col=clc, main="POST")
 
 #frequencies
 freq(pre$map)
+#     value   count
+#[1,]     1  374038 nuvole
+#[2,]     2 2368907 foresta
+#[3,]     3  402783 parti scure/ombre
 
 freq(post$map)
+#     value   count
+#[1,]     1  389348 nuvole
+#[2,]     2 1135565 foresta
+#[3,]     3 1620815 incendio+parti scure/ombre
 
 
-s1 <- 
+s1 <- 374038 + 2368907 + 402783 
 prop1 <- freq(pre$map) / s1
+#            value     count
+#[1,] 3.178914e-07 0.1189035 nuvole
+#[2,] 6.357829e-07 0.7530553 foresta
+#[3,] 9.536743e-07 0.1280413 parti scure/ombre
 
-s2 <- 
+s2 <-  389348 + 1135565 + 1620815
 prop2 <- freq(post$map) / s2
+#            value     count
+#[1,] 3.178914e-07 0.1237704 nuvole
+#[2,] 6.357829e-07 0.3609864 foresta
+#[3,] 9.536743e-07 0.5152432 incendio+parti scure/ombre
+
+# build a dataframe
+cover <- c("Foresta","Nuvole","Incendio+Ombre")
+percent_2015 <- c(0.7530553, 0.1189035, 0.1280413)
+percent_2016 <- c(0.3609864, 0.1237704, 0.5152432)
+
+percentages <- data.frame(cover, percent_2015, percent_2016)
+percentages
+
+# let's plot them!
+ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="white")
+ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="white")
+
+p1 <- ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="white")
+p2 <- ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="white")
+
+grid.arrange(p1, p2, nrow=1)
+
+
+
+
+
 
