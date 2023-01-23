@@ -147,13 +147,41 @@ plot(l2016, col=cl, main="POST")
 
 
 # Classifying the pre and post fire data 
-pre <- unsuperClass(K2015, nClasses=4)
-post <- unsuperClass(K2016, nClasses=4)
+pre <- unsuperClass(K2015, nClasses=3)
+post <- unsuperClass(K2016, nClasses=3)
 
-cl <- colorRampPalette(c('yellow','black','red'))(100)
+clc <- colorRampPalette(c('yellow','red','blue','black'))(100)
 
 par(mfrow=c(2,1))
-plot(pre$map, col=cl, main="PRE")
-plot(post$map, col=cl, main="POST")
-
+plot(pre$map, col=clc, main="PRE")
+plot(post$map, col=clc, main="POST")
+#frequencies
 freq(pre$map)
+#     value   count
+#[1,]     1  376489 #parti scure
+#[2,]     2 2360701 #foresta
+#[3,]     3  408538 #nuvole
+
+freq(post$map)
+#     value   count
+#[1,]     1 1617903 #parte bruciata
+#[2,]     2 1137483 #foresta
+#[3,]     3  390342 #nuvole
+
+s1 <- 376489 + 2360701 + 408538
+
+prop1 <- freq(pre$map) / s1
+            value     count
+#[1,] 3.178914e-07 0.7439966 #foresta
+#[2,] 6.357829e-07 0.1232643 #parti scure
+#[3,] 9.536743e-07 0.1327391 #nuvole
+
+s2 <- 1617903 + 1137483 + 390342
+
+prop2 <- freq(post$map) / s2
+            value     count
+#[1,] 3.178914e-07 0.5091098 #parte bruciata
+#[2,] 6.357829e-07 0.3663632 #foresta
+#[3,] 9.536743e-07 0.1245270 #nuvole
+
+
