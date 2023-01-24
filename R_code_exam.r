@@ -43,7 +43,7 @@ settembre <- brick("6_9_2016_Kamchatka.jpg")
 # layer 2 = red
 # layer 3 = green
 
-par(mfrow=c(1,2))
+par(mfrow=c(1,3))
 plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
 plotRGB(luglio, r=1, g=2, b=3, stretch="lin") 
 plotRGB(settembre, r=1, g=2, b=3, stretch="lin")
@@ -88,8 +88,9 @@ plot(ndvi_pre, col=cl)
 # NDVI post fire
 ndvi_post = dvi_post / (luglio[[1]] + luglio[[2]])
 # Multiframe with plotRGB on top of the NDVI image
-par(mfrow=c(2,1))
+par(mfrow=c(1,2))
 plotRGB(luglio, r=1, g=2, b=3, stretch="lin")
+plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
 plot(ndvi_post, col=cl)
 
 # NDVI post fire 1
