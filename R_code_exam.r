@@ -31,80 +31,104 @@ nbr09_2016<-(B509_2016-B709_2016)/(B509_2016+B709_2016)
 
 plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
 
-par(mfrow=c(1,3))
-plot(nbr05_2016, col=cl, main="NBR 2016 - 05")
-plot(nbr07_2016, col=cl, main="NBR 2016 - 07")
-plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
 
-maggio <- brick("17_05_2016_Kachatka.jpg")
-luglio <- brick("4_7_2016_Kamchatka.jpg")
-settembre <- brick("6_9_2016_Kamchatka.jpg")
+# maggio <- brick("17_05_2016_Kachatka.jpg")
+# luglio <- brick("4_7_2016_Kamchatka.jpg")
+# settembre <- brick("6_9_2016_Kamchatka.jpg")
 # layer 1 = NIR
 # layer 2 = red
 # layer 3 = green
 
-par(mfrow=c(1,3))
-plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
-plotRGB(luglio, r=1, g=2, b=3, stretch="lin") 
-plotRGB(settembre, r=1, g=2, b=3, stretch="lin")
+# par(mfrow=c(1,3))
+# plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
+# plotRGB(luglio, r=1, g=2, b=3, stretch="lin") 
+# plotRGB(settembre, r=1, g=2, b=3, stretch="lin")
 
 
 # DVI Difference Vegetation Index pre fire, 2016 (maggio)
-dvi_pre = maggio[[1]] - maggio[[2]]
-dvi_pre
-cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifying a color scheme
-plot(dvi_pre, col=cl)
+# dvi_pre = maggio[[1]] - maggio[[2]]
+# dvi_pre
+# cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifying a color scheme
+# plot(dvi_pre, col=cl)
 
 
 # DVI Difference Vegetation Index post fire, 2016 (luglio)
-dvi_post = luglio[[1]] - luglio[[2]]
-dvi_post
-plot(dvi_post, col=cl)
+#dvi_post = luglio[[1]] - luglio[[2]]
+#dvi_post
+#plot(dvi_post, col=cl)
 
 # DVI Difference Vegetation Index post fire, 2016 (settembre)
-dvi_post1 = settembre[[1]] - settembre[[2]]
-dvi_post1
-plot(dvi_post1, col=cl)
+#dvi_post1 = settembre[[1]] - settembre[[2]]
+#dvi_post1
+#plot(dvi_post1, col=cl)
 
 # DVI difference in time
-dvi_dif = dvi_pre - dvi_post
-cld <- colorRampPalette(c('blue','white','red'))(100) 
-plot(dvi_dif, col=cld)
+#dvi_dif = dvi_pre - dvi_post
+#cld <- colorRampPalette(c('blue','white','red'))(100) 
+#plot(dvi_dif, col=cld)
 
-dvi_dif1 = dvi_pre - dvi_post1
-cld <- colorRampPalette(c('blue','white','red'))(100) 
-plot(dvi_dif1, col=cld)
+#dvi_dif1 = dvi_pre - dvi_post1
+#cld <- colorRampPalette(c('blue','white','red'))(100) 
+#plot(dvi_dif1, col=cld)
 
 # NDVI can be used to compare images with a different radiometric resolution
 # NDVI pre fire
 
-ndvi_pre = dvi_pre / (maggio[[1]] + maggio[[2]])
+#ndvi_pre = dvi_pre / (maggio[[1]] + maggio[[2]])
 
 # Multiframe with plotRGB on top of the NDVI image
-par(mfrow=c(2,1))
-plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
-plot(ndvi_pre, col=cl)
+#par(mfrow=c(2,1))
+#plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
+#plot(ndvi_pre, col=cl)
 
 # NDVI post fire
-ndvi_post = dvi_post / (luglio[[1]] + luglio[[2]])
+#ndvi_post = dvi_post / (luglio[[1]] + luglio[[2]])
 # Multiframe with plotRGB on top of the NDVI image
-par(mfrow=c(1,2))
-plotRGB(luglio, r=1, g=2, b=3, stretch="lin")
-plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
-plot(ndvi_post, col=cl)
+#par(mfrow=c(1,2))
+#plotRGB(luglio, r=1, g=2, b=3, stretch="lin")
+#plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
+#plot(ndvi_post, col=cl)
 
 # NDVI post fire 1
-ndvi_post1 = dvi_post1 / (settembre[[1]] + settembre[[2]])
+#ndvi_post1 = dvi_post1 / (settembre[[1]] + settembre[[2]])
 # Multiframe with plotRGB on top of the NDVI image
-par(mfrow=c(2,1))
-plotRGB(settembre, r=1, g=2, b=3, stretch="lin")
-plot(ndvi_post1, col=cl)
+#par(mfrow=c(2,1))
+#plotRGB(settembre, r=1, g=2, b=3, stretch="lin")
+#plot(ndvi_post1, col=cl)
 
 # Multiframe with NDVI2015 on top of the NDVI2016 image
-par(mfrow=c(3,1))
-plot(ndvi_pre, col=cl, main="NDVI maggio")
-plot(ndvi_post, col=cl, main="NDVI luglio")
-plot(ndvi_post1, col=cl, main="NDVI settembre")
+#par(mfrow=c(3,1))
+#plot(ndvi_pre, col=cl, main="NDVI maggio")
+#plot(ndvi_post, col=cl, main="NDVI luglio")
+#plot(ndvi_post1, col=cl, main="NDVI settembre")
+
+#NDVI mediante lo studio delle bande B5(infrarosso) e B4(rosso)
+#B5 già caricato per il calcolo del NBR
+B405_2016 <- brick("B4_maggio.tif") #rosso
+ndvi_maggio <- (B505_2016-B405_2016)/(B505_2016+B405_2016)
+#viene assegnata la palette cromatica e in seguito viene plottato
+cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)
+plot(ndvi_maggio, col=cl, main="NDVI_05_2016")
+
+B407_2016 <- brick("B4_luglio.tif") #rosso
+ndvi_luglio <- (B507_2016-B407_2016)/(B507_2016+B407_2016)
+
+plot(ndvi_luglio, col=cl, main="NDVI_07_2016")
+
+B409_2016 <- brick("B4_settembre.tif") #rosso
+ndvi_settembre <- (B509_2016-B409_2016)/(B509_2016+B409_2016)
+
+plot(ndvi_settembre, col=cl, main="NDVI_09_2016")
+
+#in seguito e' stata fatta la differenza tra gli NDVI di settembre, luglio e di maggio
+
+diffNDVI<-(ndvi_luglio-ndvi_maggio)
+diffNDVI1<-(ndvi_settembre-ndvi_maggio)
+
+cls<-colorRampPalette(c('pink','red','white','blue'))(100)
+plot(diffNDVI, col=cls, main="Differenza NDVI maggio-luglio")
+plot(diffNDVI1,col=cls,main="Differenza NDVI maggio-settembre")
+
 
 # Classifying the pre and post fire data 
 #importo foto nasa, pre e post incendio
