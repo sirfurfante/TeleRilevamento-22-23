@@ -40,9 +40,9 @@ plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
 # layer 3 = green
 
 # par(mfrow=c(1,3))
-# plotRGB(maggio, r=1, g=2, b=3, stretch="lin")
-# plotRGB(luglio, r=1, g=2, b=3, stretch="lin") 
-# plotRGB(settembre, r=1, g=2, b=3, stretch="lin")
+# plotRGB(maggio, r=1, g=2, b=3, stretch="lin", main="05-2016")
+# plotRGB(luglio, r=1, g=2, b=3, stretch="lin", main="07-2016") 
+# plotRGB(settembre, r=1, g=2, b=3, stretch="lin", main="09-2016")
 
 
 # DVI Difference Vegetation Index pre fire, 2016 (maggio)
@@ -173,18 +173,22 @@ prop2 <- freq(post$map) / s2
 
 # build a dataframe
 cover <- c("Foresta","Nuvole","Incendio+Ombre")
-percent_2015 <- c(0.7530553, 0.1189035, 0.1280413)
-percent_2016 <- c(0.3609864, 0.1237704, 0.5152432)
+percent_2015 <- c(0.75, 0.11, 0.12)
+percent_2016 <- c(0.36, 0.12, 0.51)
 
 percentages <- data.frame(cover, percent_2015, percent_2016)
 percentages
 
 # let's plot them!
-ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="white")
-ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="white")
+ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="dark green")+ geom_text(aes(label=percent_2015))
+position=position_dodge((width=0.7), vjust=-0.25, size=6)
+   
+                                                                                                                      
+ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="dark green")+ geom_text(aes(label=percent_2016))
+position=position_dodge(width=0.7), vjust=-0.25, size=6)     
 
-p1 <- ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="white")
-p2 <- ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="white")
+p1 <- ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="dark green")
+p2 <- ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="dark green")
 
 grid.arrange(p1, p2, nrow=1)
 
