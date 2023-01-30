@@ -8,27 +8,34 @@ setwd("C:/lab/")
 #è stato calcolato NBR per individuare le zone bruciate
 #tale procedimento è stato eseguito per il 2016, da marzo a settembre
 
-#NBR 05_2016
+#NBR 05_2016 pre incendio
 B505_2016<-brick("B5_maggio.tif") # infrarosso
 B705_2016<-brick("B7_maggio.tif") # infrarosso a onde corte
 nbr05_2016<-(B505_2016-B705_2016)/(B505_2016+B705_2016) 
 
-# lo plotto con una specifica palette di colori
-cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
-plot(nbr05_2016, col=cl, main="NBR 2016 - 05")
+#NBR 06_2016 pre incendio
+B506_2016<-brick("B5_giugno.tif") # infrarosso
+B706_2016<-brick("B7_giugno.tif") # infrarosso a onde corte
+nbr06_2016<-(B506_2016-B706_2016)/(B506_2016+B706_2016) 
+
 
 #NBR 07_2016
 B507_2016<-brick("B5_luglio.tif") # infrarosso
 B707_2016<-brick("B7_luglio.tif") # infrarosso a onde corte
 nbr07_2016<-(B507_2016-B707_2016)/(B507_2016+B707_2016) 
 
-plot(nbr07_2016, col=cl, main="NBR 2016 - 07")
 
 #NBR 09_2016
 B509_2016<-brick("B5_settembre.tif") # infrarosso
 B709_2016<-brick("B7_settembre.tif") # infrarosso a onde corte
 nbr09_2016<-(B509_2016-B709_2016)/(B509_2016+B709_2016) 
 
+# li plotto con una specifica palette di colori
+cl<-colorRampPalette(c('purple','darkblue','red','orange','yellow','green'))(100) 
+par(mfrow=c(1,4))
+plot(nbr05_2016, col=cl, main="NBR 2016 - 05")
+plot(nbr06_2016, col=cl, main="NBR 2016 - 06")
+plot(nbr07_2016, col=cl, main="NBR 2016 - 07")
 plot(nbr09_2016, col=cl, main="NBR 2016 - 09")
 
 
@@ -110,24 +117,26 @@ ndvi_maggio <- (B505_2016-B405_2016)/(B505_2016+B405_2016)
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)
 plot(ndvi_maggio, col=cl, main="NDVI_05_2016")
 
+B406_2016 <- brick("B4_giugno.tif") #rosso
+ndvi_giugno <- (B506_2016-B406_2016)/(B506_2016+B406_2016)
+plot(ndvi_giugno, col=cl, main="NDVI_06_2016")
+
 B407_2016 <- brick("B4_luglio.tif") #rosso
 ndvi_luglio <- (B507_2016-B407_2016)/(B507_2016+B407_2016)
-
 plot(ndvi_luglio, col=cl, main="NDVI_07_2016")
 
 B409_2016 <- brick("B4_settembre.tif") #rosso
 ndvi_settembre <- (B509_2016-B409_2016)/(B509_2016+B409_2016)
-
 plot(ndvi_settembre, col=cl, main="NDVI_09_2016")
 
 #in seguito e' stata fatta la differenza tra gli NDVI di settembre, luglio e di maggio
 
-diffNDVI<-(ndvi_luglio-ndvi_maggio)
-diffNDVI1<-(ndvi_settembre-ndvi_maggio)
+diffNDVI<-(ndvi_luglio-ndvi_giugno)
+diffNDVI1<-(ndvi_settembre-ndvi_giugno)
 
 cls<-colorRampPalette(c('pink','red','white','blue'))(100)
-plot(diffNDVI, col=cls, main="Differenza NDVI maggio-luglio")
-plot(diffNDVI1,col=cls,main="Differenza NDVI maggio-settembre")
+plot(diffNDVI, col=cls, main="Differenza NDVI giugno-luglio")
+plot(diffNDVI1,col=cls,main="Differenza NDVI giugno-settembre")
 
 
 # Classifying the pre and post fire data 
