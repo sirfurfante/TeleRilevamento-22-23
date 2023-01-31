@@ -189,15 +189,15 @@ percentages <- data.frame(cover, percent_2015, percent_2016)
 percentages
 
 # let's plot them!
-ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="dark green")+ geom_text(aes(label=percent_2015))
-position=position_dodge((width=0.7), vjust=-0.25, size=6)
+ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="white")+ geom_text(aes(label=percent_2015)) 
+position=position_dodge((width=0.7), vjust=0.25, size=6)
    
                                                                                                                       
-ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="dark green")+ geom_text(aes(label=percent_2016))
-position=position_dodge(width=0.7), vjust=-0.25, size=6)     
+ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="white")+ geom_text(aes(label=percent_2016))
++ position=position_dodge(width=0.9, vjust=-0.25, size=6)
 
-p1 <- ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="dark green")
-p2 <- ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="dark green")
+p1 <- ggplot(percentages, aes(x=cover, y=percent_2015, color=cover)) + geom_bar(stat="identity", fill="white")+ geom_text(aes(label=percent_2015)) 
+p2 <- ggplot(percentages, aes(x=cover, y=percent_2016, color=cover)) + geom_bar(stat="identity", fill="white")+ geom_text(aes(label=percent_2016))
 
 grid.arrange(p1, p2, nrow=1)
 
